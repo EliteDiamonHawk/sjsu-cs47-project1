@@ -1,4 +1,3 @@
-.include "lab5_macro.asm"
 
 .text
 
