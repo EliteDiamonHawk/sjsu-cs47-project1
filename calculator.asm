@@ -3,6 +3,7 @@
 	j main
 .include	"_macro.asm"
 .include	"_subroutine.asm"
+.include	"convert.asm"
 
 .data
 prompt:	.asciiz	"Please enter an equation: "
@@ -27,7 +28,7 @@ main:
 	#ending: print end_msg and integer in 0(equ)
 	print_string_lbl(end_msg)
 	lw	$a0, equ
-	jal	println_int
+	jal	println_integer
 	jal	exit_program
 
 

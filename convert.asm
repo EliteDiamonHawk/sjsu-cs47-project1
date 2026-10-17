@@ -7,8 +7,8 @@ convert:
 	move	$t2, $t1	#replace pointer: 1=value, 0=operator
 	la	$t3, equ	#equation pointer
 convert_loop_start:
-	beqz	0($t1), validate_loop_end
 	lbu	$t4, 0($t1)
+	beqz	$t4, convert_loop_end
 	
 convert_loop_if_open_parenthesis:
 
