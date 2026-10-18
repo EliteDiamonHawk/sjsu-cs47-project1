@@ -3,47 +3,43 @@
 # Convert the input string into numeric values and operations
 convert:
 	push($ra)
-	la	$t1, str	#parse pointer
+	move	$t1, $a0	#parse pointer
 	move	$t2, $t1	#replace pointer: 1=value, 0=operator
-	la	$t3, equ	#equation pointer
+	move	$t3, $a1	#equation pointer
 convert_loop_start:
 	lbu	$t4, 0($t1)
 	beqz	$t4, convert_loop_end
 	
-convert_loop_if_open_parenthesis:
+convert_if_open_parenthesis:
 
 	j	convert_loop_increment_pointers
 	
-convert_loop_if_close_parenthesis:
+convert_if_close_parenthesis:
 
 	j	convert_loop_increment_pointers
 	
-convert_loop_if_carot:
+convert_if_mult:
 
 	j	convert_loop_increment_pointers
 	
-convert_loop_if_star:
+convert_if_x:
 
 	j	convert_loop_increment_pointers
 	
-convert_loop_if_x:
+convert_if_div:
 
 	j	convert_loop_increment_pointers
 	
-convert_loop_if_div:
+convert_if_plus:
 
 	j	convert_loop_increment_pointers
 	
-convert_loop_if_plus:
+convert_if_minus:
 
 	j	convert_loop_increment_pointers
 	
-convert_loop_if_minus:
-
-	j	convert_loop_increment_pointers
+convert_if_num:
 	
-convert_loop_if_num:
-
 	j	convert_loop_increment_pointers
 	
 	
@@ -54,6 +50,8 @@ convert_loop_increment_pointers:
 convert_loop_end:
 	pop($ra)
 	jr	$ra
+	
+	
 	
 convert_toInteger:
 
@@ -68,6 +66,18 @@ convert_rP:	#restore pointers
 	pop($t2)
 	pop($t1)
 	pop($t0)
+	jr	$ra
+	
+	
+.data
+input_error: 	.asciiz	"INPUT ERROR"
+.text
+#early ends the calculator due to sytnax/input error
+exit_input_error:
+	jal	calculator_clear_stack
+	move	$ra, $v0
+	la	$v0, input_error
+	addi	$v1, $zero, 1
 	jr	$ra
 
 	
