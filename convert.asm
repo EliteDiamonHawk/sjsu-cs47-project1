@@ -6,63 +6,61 @@ convert:
 	move	$t1, $a0	#parse pointer
 	move	$t2, $t1	#replace pointer: 1=value, 0=operator
 	move	$t3, $a1	#equation pointer
+	
 convert_loop_start:
-	lbu	$t4, 0($t1)
-	beqz	$t4, convert_loop_end
+	lbu	$t4, 0($t1)		#current char
+	beqz	$t4, convert_loop_end	#loop while current char is not $zero
+
+convert_char_to_integer:	#recusively turn numbers into 
+	jal	convert_saveP
+	jal	char_to_integer		#convert char to integer, saving pointers
+	jal	convert_restoreP
+	beqz	$v1, convert_store_operation	#checks if conversion is successful, else an operation
 	
-convert_if_open_parenthesis:
+convert_string_to_integer_loop:	
+	push($v0)
+	
+
+convert_store_integer:
 
 	j	convert_loop_increment_pointers
-	
-convert_if_close_parenthesis:
 
-	j	convert_loop_increment_pointers
-	
-convert_if_mult:
+convert_check_operation:	# validates current char as operation
+	lbu	$t4, 0($t1)		# in case t4 was modified
+	beq 	$t4, '(', convert_store_operation
+	beq 	$t4, ')', convert_store_operation
+	beq 	$t4, '^', convert_store_operation
+	beq 	$t4, '*', convert_store_operation
+	beq 	$t4, 'x', convert_store_operation
+	beq 	$t4, '/', convert_store_operation
+	beq 	$t4, '+', convert_store_operation
+	beq 	$t4, '-', convert_store_operation
+	j	exit_input_error	#error if operand or digit
 
-	j	convert_loop_increment_pointers
-	
-convert_if_x:
-
-	j	convert_loop_increment_pointers
-	
-convert_if_div:
-
-	j	convert_loop_increment_pointers
-	
-convert_if_plus:
-
-	j	convert_loop_increment_pointers
-	
-convert_if_minus:
-
-	j	convert_loop_increment_pointers
-	
-convert_if_num:
-	
-	j	convert_loop_increment_pointers
-	
+convert_store_operation:
+	sw	$t4, 0($t3)
+	sb	$zero,	0($t2)
 	
 convert_loop_increment_pointers:
-	addi $t1, $t1, 1	#increment pointers
-	addi $t2, $t2, 1
-	addi $t3, $t3, 4
+	addi	$t1, $t1, 1	#increment pointers
+	addi	$t2, $t2, 1
+	addi	$t3, $t3, 4
+	
+	j	convert_loop_start
+
 convert_loop_end:
 	pop($ra)
 	jr	$ra
 	
-	
-	
-convert_toInteger:
-
-	jr	$ra
-	
-convert_sP:	#save pointers
+#save pointers
+convert_saveP:
 	push($t0)
 	push($t1)
 	push($t2)
 	jr	$ra
-convert_rP:	#restore pointers
+
+#restore pointers
+convert_restoreP:
 	pop($t2)
 	pop($t1)
 	pop($t0)

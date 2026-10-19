@@ -421,3 +421,16 @@ count_stats_string_loop_end:
 	pop($s0)
 	pop($ra)
 	jr	$ra
+	
+	
+#converts a character to digit
+#a0: character, return: digit as integer in $v0, 1/0 if successful in $v1
+char_to_integer:
+	push($ra)
+	push($a0)
+	jal	is_digit
+	move	$v1, $v0
+	pop($v0)
+	subiu	$v0, $v0, '0'
+	pop($ra)
+	jr	$ra

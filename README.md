@@ -27,20 +27,23 @@ calculate_string_equation
 - `$v1`: intended status code (`0` if successful, `1` if error; on error `$v0` contains the error string address).
 
 convert
-- Converts the input string into numeric values and operations and validates accepted characters.
-- Currently incomplete; the operator, parenthesis, and number conversion branches are placeholders.
+- Converts the input string into numeric values and operations and validates accepted characters `()^*x/+-` and digits `0-9`. Does not validate syntax.
 - Separated into `convert.asm` for readability/organization.
 - `$a0`: string equation.
 - `$a1`: workspace.
 - Intended result: the given string equation becomes a tracker where byte `x` stores `1` when workspace word `x` is an integer and `0` when it is an operator. The workspace stores the converted equation.
 
 calculator_start_stack
-- Marks the beginning of calculator-owned stack usage and stores the return address used to leave the calculator.
-- Used so calculator stack state can be cleared on either normal completion or an input error.
+- Stores $s# registers.
+- Stores the return address used to leave the calculator.
+- Marks the beginning of calculator-owned stack usage.
+- Used so on either normal completion or an input error, calculator stack are cleared and saved registers are restored.
 
 calculator_clear_stack
 - Clears calculator-owned stack usage until its marker is reached.
+- saved registers are restored 
 - Intended to return the saved return address in `$v0`.
+- does not modify temp registers
 
 exit_input_error
 - Early ends calculator processing due to a syntax/input error.
