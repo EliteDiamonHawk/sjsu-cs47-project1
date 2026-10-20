@@ -21,7 +21,7 @@ main:
 	println_string_lbl(calc_msg)
 	la	$a0, str
 	la	$a1, equ
-	jal calculate_string_equation
+	jal calculator_calculateStringEquation
 	bnez	$v1, main_calculation_error_sys_output	#check for error
 	
 	#ending: print end_msg and integer in 0(equ)

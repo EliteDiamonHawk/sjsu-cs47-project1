@@ -2,7 +2,7 @@
 
 #marks the start of the stack for calculator so that when a error occurs, all stack usage is cleared
 #marker is $zero
-calculator_start_stack:
+calculator_startStack:
 	push($a0)
 	puhs($s0)
 	push($s1)
@@ -12,13 +12,16 @@ calculator_start_stack:
 	push($s5)
 	push($s6)
 	push($s7)
-	push($zero)
+	move	$s2, $sp
 	jr	$ra
 
 #clears the calculator stack and returns the $ra to leave calculator
-calculator_clear_stack:
-	push($v0)
-	bnez	$v0, calculator_clear_stack
+calculator_clearStack:
+	beq	$sp, $ra, calculator_clearStack_loop_end
+calculator_clearStack_loop_start:
+	pop($zero)
+	bne	$sp, $ra, calculator_clearStack_loop_start
+calculator_clearStack_loop_end:
 	pop($s7)
 	pop($s6)
 	pop($s5)

@@ -4,15 +4,16 @@
 convert:
 	push($ra)
 	move	$t1, $a0	#parse pointer
-	move	$t2, $t1	#replace pointer: 1=value, 0=operator
+	move	$t2, $t1	#replace pointer: 0=end,1=operation/char,2=integer
 	move	$t3, $a1	#equation pointer
 	
 convert_loop_start:
 	lbu	$t4, 0($t1)		#current char
 	beqz	$t4, convert_loop_end	#loop while current char is not $zero
 
-convert_char_to_integer:	#recusively turn numbers into 
+convert_char_to_integer:
 	jal	convert_saveP
+	move	$a0, $t4
 	jal	char_to_integer		#convert char to integer, saving pointers
 	jal	convert_restoreP
 	beqz	$v1, convert_store_operation	#checks if conversion is successful, else an operation
@@ -35,11 +36,20 @@ convert_check_operation:	# validates current char as operation
 	beq 	$t4, '/', convert_store_operation
 	beq 	$t4, '+', convert_store_operation
 	beq 	$t4, '-', convert_store_operation
-	j	exit_input_error	#error if operand or digit
+	
+	#whitespace
+	jal	convert_saveP
+	move	$a0, $t4
+	jal	is_whitespc
+	jal	convert_restoreP
+	bnez	$v0, convert_store_operation
+	
+	j	calculator_exit_inputError	#error if not operand, whitespc, or digit
 
 convert_store_operation:
 	sw	$t4, 0($t3)
-	sb	$zero,	0($t2)
+	addi	$t5, $zero, 1 
+	sb	$t5,	0($t2)
 	
 convert_loop_increment_pointers:
 	addi	$t1, $t1, 1	#increment pointers
@@ -71,8 +81,8 @@ convert_restoreP:
 input_error: 	.asciiz	"INPUT ERROR"
 .text
 #early ends the calculator due to sytnax/input error
-exit_input_error:
-	jal	calculator_clear_stack
+calculator_exit_inputError:
+	jal	calculator_clearStack
 	move	$ra, $v0
 	la	$v0, input_error
 	addi	$v1, $zero, 1
