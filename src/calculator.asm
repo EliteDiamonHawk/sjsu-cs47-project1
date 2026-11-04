@@ -16,13 +16,15 @@ calculator_calculateStringEquation:
 
 	#start algo
 	jal 	convert
-	
-	
+	jal	execute_polish
 	
 	#end cleanup
 	jal	calculator_clearStack
-	# TODO: put output in v0, v1
-	jr	$v0
+	# put output in v0, v1
+	move	$ra, $v0
+	la	$v0, $s1
+	move	$v1, $zero
+	jr	$ra
 	
 	
 	

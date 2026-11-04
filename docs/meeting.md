@@ -7,8 +7,6 @@
 - given a string equation, it converts it into reverse polish form
 - validates accepted characters `()^*x/+-` and digits `0-9`. Does not validate syntax.
 - Separated into `convert.asm` for readability/organization.
-- `$a0`: string equation.
-- `$a1`: workspace.
 
 ### execute_polish
 - assigned to: `uxiion (Alan)`
