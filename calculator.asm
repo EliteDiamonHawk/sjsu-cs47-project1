@@ -81,16 +81,3 @@ equation_del:
 
 
 
-
-#removes whitespc from equation at given address
-equation_rmWhitespc:
-equation_rmWhitespc_loop:
-	
-	
-	
-equation_rmWhitespc_loop_end:
-	jr	$ra
-	
-	
-#removes all whitespc throught equation
-equation_clearWhitespc:
