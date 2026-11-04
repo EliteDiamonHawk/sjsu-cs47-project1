@@ -101,8 +101,6 @@ equation_delRange_loop_end:
 	pop($ra)
 	jr	$ra
 	
-	
-
 #deletes a given number of words/operations/integers at given address in equation
 equation_delMulti:
 	push($ra)
@@ -112,7 +110,6 @@ equation_delMulti:
 	
 	pop($ra)
 	jr	$ra
-
 
 #deletes given word in equation and updates tracker
 equation_del:
