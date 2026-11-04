@@ -17,10 +17,10 @@ calculator_startStack:
 
 #clears the calculator stack and returns the $ra to leave calculator
 calculator_clearStack:
-	beq	$sp, $ra, calculator_clearStack_loop_end
+	beq	$sp, $s2, calculator_clearStack_loop_end
 calculator_clearStack_loop_start:
 	pop($zero)
-	bne	$sp, $ra, calculator_clearStack_loop_start
+	bne	$sp, $s2, calculator_clearStack_loop_start
 calculator_clearStack_loop_end:
 	pop($s7)
 	pop($s6)

@@ -19,21 +19,21 @@
 - assigned to: `hempie`
 - detect overflow
 - `$a0`: first integer to add
-- `$a1`: second interger to add
+- `$a1`: second integer to add
 - `$v0`: result
 
 ### calculator_subtract
 - assigned to: `hempie`
 - detect overflow
 - `$a0`: first integer to subtract from
-- `$a1`: second interger, the number you are subtracting
+- `$a1`: second integer, the number you are subtracting
 - `$v0`: result
 
 ### calculator_multiply
 - assigned to: `Meme Generator`
 - detect overflow
 - `$a0`: first integer to multiple with
-- `$a1`: second interger to multiply with
+- `$a1`: second integer to multiply with
 - `$v0`: result
 
 ### calculator_divide
@@ -41,7 +41,7 @@
 - detect overflow
 - truncate decimals
 - `$a0`: first integer dividend
-- `$a1`: second interger divisor
+- `$a1`: second integer divisor
 - `$v0`: result
 
 ### calculator_exponent
@@ -56,9 +56,9 @@
 - assigned to: `trinity`
 - only allows `-` and numerals
 - if it hits a character that is not allowed, it assumes end of integer/string
-- use `equation_replace`
 - `a0`: pointer (in tracker/string) to string (must iterate only once through)
 - `a1`: pointer to workspace
 - result is stored in first word of workspace
-
+- use `equation_replace`
+- `v0`: number of characters/digits. for example `4321` returns 4 and `-4321` return 5.
 
