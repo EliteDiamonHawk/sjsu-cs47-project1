@@ -58,11 +58,3 @@ deletes a given number of words/operations/integers at given address in equation
 ### equation_del
 - deletes given word in equation and updates tracker
 - `$a0`: address of word (assume within equation/workspace)
-
-### equation_rmWhitespc
-- removes whitespace from tracker and workspace/equation at given address
-- no validations
-- `$a0`: address of whitespace (word; assume within equation/workspace). Does not need to be first whitespace/word
-
-### equation_clearWhitespc
-- no validations
