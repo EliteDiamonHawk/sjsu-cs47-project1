@@ -65,19 +65,64 @@ equation_replace:
 
 # deletes a given range in equation
 equation_delRange:
-	move	$t0, $a0
-	move	$t1, $a1
+	push($ra)
 
 equation_delRange_loop_start:
-	lw
+	
+	#replace a character
+	push($a0)
+	push($a1)
+	move	$a0, $a1
+	jal	equation_toTracker
+	pop($a1)
+	pop($a0)
+
+	push($a0)
+	push($a1)
+	move	$a2, $v0
+	jal	equation_replace
+	pop($a1)
+	pop($a0)
+	
+	#check if last placed character was string end marker
+	push($a0)
+	push($a1)
+	jal	equation_getType
+	pop($a1)
+	pop($a0)
+	beqz	$v0, equation_delRange_loop_end
+	
+	#increment and loop
+	addi	$a0, $a0, 4
+	addi	$a1, $a1, 4
+	j	equation_delRange_loop_start
+	
+equation_delRange_loop_end:
+	pop($ra)
+	jr	$ra
+	
 	
 
 #deletes a given number of words/operations/integers at given address in equation
 equation_delMulti:
+	push($ra)
+	
+	add	$a1, $a0, $a1
+	jal	equation_delRange
+	
+	pop($ra)
+	jr	$ra
 
 
 #deletes given word in equation and updates tracker
 equation_del:
+	push($ra)
+	
+	addi	$a1, $zero, 1
+	jal	equation_delMulti
+	
+	pop($ra)
+	jr	$ra
 
 
 
