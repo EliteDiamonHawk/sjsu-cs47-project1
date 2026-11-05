@@ -7,6 +7,8 @@
 - given a string equation, it converts it into reverse polish form
 - validates accepted characters `()^*x/+-` and digits `0-9`. Does not validate syntax.
 - Separated into `convert.asm` for readability/organization.
+- `$a0`: string equation.
+- `$a1`: workspace.
 
 ### execute_polish
 - assigned to: `uxiion (Alan)`
@@ -52,11 +54,8 @@
 
 ### string_to_int
 - assigned to: `trinity`
-- only allows `-` and numerals
+- only allows numerals 0-9 and an inital `-` for negative
 - if it hits a character that is not allowed, it assumes end of integer/string
 - `a0`: pointer (in tracker/string) to string (must iterate only once through)
-- `a1`: pointer to workspace
-- result is stored in first word of workspace
-- use `equation_replace`
-- `v0`: number of characters/digits. for example `4321` returns 4 and `-4321` return 5.
-
+- `v0`: integer in two's complement (signed)
+- `v1`: number of characters/digits. for example `4321` returns 4 and `-4321` return 5.
