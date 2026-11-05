@@ -59,4 +59,3 @@
 - `a0`: pointer (in tracker/string) to string (must iterate only once through)
 - `v0`: integer in two's complement (signed)
 - `v1`: number of characters/digits. for example `4321` returns 4 and `-4321` return 5.
-

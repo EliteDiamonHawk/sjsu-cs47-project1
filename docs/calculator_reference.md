@@ -4,7 +4,7 @@
 
 `$s#` registers from before the subroutine will be saved and returned through `calc_stack.asm`. Currently, the calculator saves the current values:
 - `$s0`: pointer to tracker/given string equation
-- `$s1`: pointer to the subspace
+- `$s1`: pointer to the workspace
 - `$s2`: pointer to start of calculator stack for exiting/clearing.
 
 ## Main Subroutine
