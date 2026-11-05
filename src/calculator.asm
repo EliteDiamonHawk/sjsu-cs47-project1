@@ -32,7 +32,7 @@ calculator_calculateStringEquation:
 equation_toTracker:
 	subu	$v0, $a0, $s1	# offset from beginning of equ
 	srl	$v0, $v0, 2	# divide offset by 4
-	addu	$v0, $a0, $v0	# address of corresponding type byte
+	addu	$v0, $s0, $v0	# address of corresponding type byte in tracker
 	jr	$ra
 	
 equation_getType:
