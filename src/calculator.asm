@@ -2,6 +2,7 @@
 .include	"_subroutine.asm"
 .include	"calc_stack.asm"
 .include	"convert.asm"
+.include	"calc_arithmetic.asm"
 
 .text
 # Calculates the answer to an string equation
