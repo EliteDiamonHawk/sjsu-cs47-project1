@@ -1,8 +1,11 @@
 .include	"_macro.asm"
 .include	"_subroutine.asm"
 .include	"calc_stack.asm"
+.include	"string_to_int.asm"
 .include	"convert.asm"
 .include	"calc_arithmetic.asm"
+.include	"calc_exponent.asm"
+.include	"execute_polish.asm"
 
 .text
 # Calculates the answer to an string equation
