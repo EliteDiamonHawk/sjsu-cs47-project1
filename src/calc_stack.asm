@@ -3,7 +3,7 @@
 #marks the start of the stack for calculator so that when a error occurs, all stack usage is cleared
 #marker is $zero
 calculator_startStack:
-	push($a0)
+	push($a0)	#ra to outside calculator
 	puhs($s0)
 	push($s1)
 	push($s2)
@@ -16,6 +16,7 @@ calculator_startStack:
 	jr	$ra
 
 #clears the calculator stack and returns the $ra to leave calculator
+#does not touch temporaries so store calculator return values there
 calculator_clearStack:
 	beq	$sp, $s2, calculator_clearStack_loop_end
 calculator_clearStack_loop_start:

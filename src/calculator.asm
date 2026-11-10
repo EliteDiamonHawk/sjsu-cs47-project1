@@ -20,10 +20,11 @@ calculator_calculateStringEquation:
 	jal	execute_polish
 	
 	#end cleanup
+	move	$t0, $v0		#save answer
 	jal	calculator_clearStack
 	# put output in v0, v1
 	move	$ra, $v0
-	la	$v0, $s1
+	la	$v0, $t0
 	move	$v1, $zero
 	jr	$ra
 	
