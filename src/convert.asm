@@ -29,12 +29,22 @@ convert_expect_operand:
 	addi	$t5, $zero, '('
 	beq	$t4, $t5, convert_open_parenthesis
 
+	#negative number case: '-' must be directly followed by a digit
+	addi	$t5, $zero, '-'
+	bne	$t4, $t5, convert_expect_operand_digit
+	lbu	$a0, 1($s3)
+	jal	is_digit
+	beqz	$v0, calculator_exit_inputError
+	j	convert_expect_operand_number
+
 	#normal case: char is digit
+convert_expect_operand_digit:
 	move	$a0, $t4
 	jal	is_digit
 	beqz	$v0, calculator_exit_inputError
-	
-	#convert to integer
+
+	#convert to integer. string_to_int handles a leading '-'
+convert_expect_operand_number:
 	move	$a0, $s3
 	jal	string_to_int
 	

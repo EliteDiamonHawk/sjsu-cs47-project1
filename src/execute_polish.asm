@@ -39,7 +39,7 @@ execute_polish_operator:
 	pop($a1) 		# pop right operand first
 	pop($a0)		# pop left operand second
 	
-	addi $s5, $s5, -1
+	addi $s5, $s5, -2	# two operands popped
 	lw $t0, 0($s4)
 	
 	addi $t1, $zero, '+'

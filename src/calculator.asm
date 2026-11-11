@@ -27,7 +27,7 @@ calculator_calculateStringEquation:
 	jal	calculator_clearStack
 	# put output in v0, v1
 	move	$ra, $v0
-	la	$v0, $t0
+	move $v0, $t0
 	move	$v1, $zero
 	jr	$ra
 	

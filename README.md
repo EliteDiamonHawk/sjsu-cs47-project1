@@ -14,4 +14,4 @@ The program supports the following:
 The program does NOT support the following:
 - decimals `.`
   - fractions due to division are truncated.
-- unary operators such as `-1` and `+1`. Instead write such as `(0-1)`, `(0+1)`, or `1`.
+- unary operators such as `+1` or `-(1)`. A `-` directly before a number is read as a negative number (e.g. `-1`, `2*-3`, `5--2`); otherwise write such as `(0-1)`, `(0+1)`, or `1`.

@@ -1,2 +1,4 @@
 cs47-project1-run-mars.lnk
-temp/
+temp/.DS_Store
+
+.DS_Store

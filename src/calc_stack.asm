@@ -4,7 +4,7 @@
 #marker is $zero
 calculator_startStack:
 	push($a0)	#ra to outside calculator
-	puhs($s0)
+	push($s0)
 	push($s1)
 	push($s2)
 	push($s3)

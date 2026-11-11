@@ -8,6 +8,7 @@ prompt:	.asciiz	"Please enter an equation: "
 calc_msg:	.asciiz	"Calculating... "
 end_msg:	.asciiz "Answer: "
 str:	.space	100	#after convert: 1=value, 0=operator
+	.align	2	#word-align equ for sw/lw
 equ:	.space	400	#stores integer and operations
 
 .text
@@ -23,10 +24,11 @@ main:
 	la	$a1, equ
 	jal calculator_calculateStringEquation
 	bnez	$v1, main_calculation_error_sys_output	#check for error
-	
+	move	$s0, $v0	#save answer; print_string overwrites $v0
+
 	#ending: print end_msg and integer in 0(equ)
 	print_string_lbl(end_msg)
-	move	$a0, $v0
+	move	$a0, $s0
 	jal	println_integer
 	jal	exit_program
 	
