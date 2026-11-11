@@ -63,6 +63,12 @@ calculator_multiply:
 calculator_divide:
 	beq	$zero, $a1, calculator_exit_overflowError	# If divisor is 0, overflow occurred
 	
+	# handle edge case of INTEGER_MIN / -1
+	seq	$t9, $a0, -2147483648
+	seq	$t8, $a1, -1
+	and	$t9, $t9, $t8
+	bnez	$t9, calculator_exit_overflowError
+	
 	div	$a0, $a1	# Otherwise, divides the dividend by the divisor
 	mflo	$v0		# Moves the result from Lo register to $v0
 	
